@@ -1,7 +1,8 @@
 from dataclasses import dataclass
-from typing import List, Dict
+from typing import Dict
 
 # This current configuration wont work because we have metrics and comparisons
+
 
 @dataclass
 class LexicalMetrics:
@@ -11,11 +12,13 @@ class LexicalMetrics:
     density: float
     levenshtein_distance: float
 
+
 @dataclass
 class SyntacticMetrics:
     pos_frequency: Dict[str, float]
     clauses: int
     dependency_distance: float
+
 
 @dataclass
 class LLMJudgeMetrics:
