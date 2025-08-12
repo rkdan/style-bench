@@ -4,14 +4,27 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "nltk>=3.9.1",
+    "numpy>=2.3.2",
+    "scipy>=1.16.1",
+    "textdistance>=4.6.3",
+]
 
 [dependency-groups]
 dev = [
+    "ipykernel>=6.30.1",
+    "matplotlib>=3.10.5",
     "pre-commit>=4.3.0",
     "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
+    "rich>=14.1.0",
     "ruff>=0.12.8",
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
 
 [build-system]
 requires = ["uv_build>=0.8.9,<0.9.0"]

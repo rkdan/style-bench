@@ -1,0 +1,16 @@
+lexical:
+  richness:
+    mattr: true
+    mtld: true
+  word_length: true
+  function_words: true
+  density: true
+  sentiment: true
+syntactic:
+  pos_frequency: true
+  clauses: true
+  dependency_distance: true
+
+# Data
+data_path: 'data/'
+output_path: 'output/'

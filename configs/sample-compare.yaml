@@ -1,0 +1,7 @@
+model_based:
+  bert_score: true
+  llm_judge:
+    straight_tell: true
+    compare_samples: true
+    model: 'gpt-4o-mini'
+  bert_classifier: true
