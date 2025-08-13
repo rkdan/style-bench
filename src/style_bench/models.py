@@ -1,16 +1,26 @@
 from dataclasses import dataclass
 from typing import Dict
 
+import numpy as np
+
 # This current configuration wont work because we have metrics and comparisons
 
 
 @dataclass
+class WordLength:
+    avg: np.ndarray
+    std: np.ndarray
+    skew: np.ndarray
+    kurtosis: np.ndarray
+
+
+@dataclass
 class LexicalMetrics:
-    avg_word_length: float
-    function_word_frequency: float
-    richness: float
-    density: float
-    levenshtein_distance: float
+    word_length: WordLength
+    function_word_frequency: np.ndarray
+    richness: np.ndarray
+    density: np.ndarray
+    sentiment: np.ndarray
 
 
 @dataclass
