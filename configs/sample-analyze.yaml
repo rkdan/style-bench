@@ -17,4 +17,5 @@ syntactic:
 # Data
 data:
   data_path: 'data/O2_approved_pairs.json'
-  output_path: 'output/bush/'
+  target_key: 'answer' # Could be something else like 'CAPT JACK SPARROW'
+  output_path: 'output/obama/'

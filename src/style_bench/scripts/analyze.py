@@ -5,6 +5,7 @@ import click
 from loguru import logger
 from style_bench.config import load_config
 from style_bench.logging import setup_logging
+from style_bench.utils import extract_texts
 
 
 @click.command()
@@ -24,12 +25,20 @@ def main(config_path, log_level, log_file):
         logger.info("Experiment: {}", config.experiment_name)
         logger.info("Data path: {}", config.data.data_path)
         logger.info("Output path: {}", config.data.output_path)
+        print("")
 
     except Exception as e:
         logger.error("Failed to load config: ", e)
         raise
 
     # == Data ingestion ===
+    try:
+        logger.info("Extracting texts from data file: {}", config.data.data_path)
+        texts = extract_texts(config.data.data_path, config.data.target_key)
+        logger.success("Extracted {} texts successfully!", len(texts))
+    except Exception as e:
+        logger.error("Failed to extract texts: ", e)
+        raise
 
     # == Analysis tools loaded ===
 

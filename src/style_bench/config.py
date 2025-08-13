@@ -47,6 +47,7 @@ class LexicalConfig(BaseModel):
 
 class DataConfig(BaseModel):
     data_path: str
+    target_key: str = "answer"
     output_path: str = "output/"
 
     @field_validator("data_path")
