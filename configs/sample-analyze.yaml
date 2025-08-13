@@ -1,3 +1,6 @@
+experiment_name: 'bush-1-full'
+experiment_description: 'Contains analysis of ALL Bush answers'
+
 lexical:
   richness:
     mattr: true
@@ -12,5 +15,6 @@ syntactic:
   dependency_distance: true
 
 # Data
-data_path: 'data/'
-output_path: 'output/'
+data:
+  data_path: 'data/O2_approved_pairs.json'
+  output_path: 'output/bush/'
