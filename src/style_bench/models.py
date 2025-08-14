@@ -15,12 +15,25 @@ class WordLength:
 
 
 @dataclass
+class Richness:
+    ttr: np.ndarray
+    mattr: np.ndarray
+
+
+@dataclass
+class Legomena:
+    hapax: np.ndarray
+    dislegomena: np.ndarray
+    trilegomina: np.ndarray
+
+
+@dataclass
 class LexicalMetrics:
     word_length: WordLength
     function_word_frequency: np.ndarray
-    richness: np.ndarray
-    density: np.ndarray
+    richness: Richness
     sentiment: np.ndarray
+    legomena: Legomena
 
 
 @dataclass
