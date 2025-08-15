@@ -9,7 +9,7 @@ from nltk.tokenize import word_tokenize
 
 from transformers import pipeline
 
-from .models import LexicalMetrics, Legomena
+from .models import LexicalMetrics
 from .config import LexicalConfig
 
 
@@ -152,7 +152,7 @@ class LexicalComputer:
         return float(ttr), float(mattr)
 
     # === Legomena ===
-    def _calculate_legomena(self, words: list) -> Legomena:
+    def _calculate_legomena(self, words: list) -> tuple:
         """Calculate hapax, dislegomena, and trilegomina ratios"""
         word_counts = nltk.FreqDist(words)
         hapax = sum(1 for count in word_counts.values() if count == 1)
