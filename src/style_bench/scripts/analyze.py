@@ -6,6 +6,8 @@ from loguru import logger
 from style_bench.config import load_config
 from style_bench.logging import setup_logging
 from style_bench.utils import extract_texts
+from style_bench.lexical import LexicalComputer
+from style_bench.output_manager import OutputManager
 
 
 @click.command()
@@ -41,12 +43,18 @@ def main(config_path, log_level, log_file):
         raise
 
     # == Analysis tools loaded ===
+    lexical_computer = LexicalComputer(config.lexical)
+    logger.info("Lexical analysis tools initialized")
 
     # == Analysis execution ===
+    lexical_metrics = lexical_computer.analyze_corpus(
+        texts,
+    )
+    logger.success("Lexical analysis completed")
 
     # == Output storage ===
-
-    logger.success("Analysis completed successfully!")
+    output_manager = OutputManager()
+    output_manager(config, lexical_metrics, texts)
 
 
 if __name__ == "__main__":

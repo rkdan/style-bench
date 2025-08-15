@@ -1,5 +1,5 @@
-experiment_name: 'bush-1-full'
-experiment_description: 'Contains analysis of ALL Bush answers'
+experiment_name: 'obama-1-full'
+experiment_description: 'Contains analysis of ALL Obama answers'
 
 lexical:
   richness:
@@ -9,6 +9,10 @@ lexical:
   function_words: true
   density: true
   sentiment: true
+  legmonena:
+    hapax: true
+    dislegomena: true
+    trilegomina: true
 syntactic:
   pos_frequency: true
   clauses: true

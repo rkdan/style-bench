@@ -32,6 +32,12 @@ class SyntacticConfig(BaseModel):
     dependency_distance: bool = True
 
 
+class LegomenaConfig(BaseModel):
+    hapax: bool = True
+    dislegomena: bool = True
+    trilegomina: bool = True
+
+
 class RichnessConfig(BaseModel):
     mattr: bool = True
     mtld: bool = True
@@ -42,6 +48,7 @@ class LexicalConfig(BaseModel):
     word_length: bool = True
     function_words: bool = True
     density: bool = True
+    legomena: LegomenaConfig = LegomenaConfig()
     sentiment: bool = True
 
 
