@@ -1,5 +1,5 @@
-experiment_name: 'obama-1-full'
-experiment_description: 'Contains analysis of ALL Obama answers'
+experiment_name: 'bush-500'
+experiment_description: 'Contains analysis of 500 Bush answers'
 
 lexical:
   richness:
@@ -8,7 +8,9 @@ lexical:
   word_length: true
   function_words: true
   density: true
-  sentiment: true
+  sentiment:
+    model: 'j-hartmann/emotion-english-distilroberta-base'
+    classes: 7
   legmonena:
     hapax: true
     dislegomena: true
@@ -20,6 +22,6 @@ syntactic:
 
 # Data
 data:
-  data_path: 'data/O2_approved_pairs.json'
+  data_path: 'data/500_bush_pairs.json'
   target_key: 'answer' # Could be something else like 'CAPT JACK SPARROW'
-  output_path: 'output/obama/'
+  output_path: 'output/bush/'

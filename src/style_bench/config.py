@@ -4,28 +4,6 @@ from pydantic import BaseModel, field_validator
 from pathlib import Path
 
 
-"""
-Typical config file looks like this:
-
-lexical:
-  richness:
-    mattr: true
-    mtld: true
-  word_length: true
-  function_words: true
-  density: true
-  sentiment: true
-syntactic:
-  pos_frequency: true
-  clauses: true
-  dependency_distance: true
-
-# Data
-data_path: 'data/B2_approved_pairs.json'
-output_path: 'output/bush/'
-"""
-
-
 class SyntacticConfig(BaseModel):
     pos_frequency: bool = True
     clauses: bool = True
@@ -43,13 +21,19 @@ class RichnessConfig(BaseModel):
     mtld: bool = True
 
 
+class SentimentConfig(BaseModel):
+    model_name: str = "j-hartmann/emotion-english-distilroberta-base"
+    classes: int = 7
+    batch_size: int = 64
+
+
 class LexicalConfig(BaseModel):
     richness: RichnessConfig = RichnessConfig()
     word_length: bool = True
     function_words: bool = True
     density: bool = True
     legomena: LegomenaConfig = LegomenaConfig()
-    sentiment: bool = True
+    sentiment: SentimentConfig = SentimentConfig()
 
 
 class DataConfig(BaseModel):

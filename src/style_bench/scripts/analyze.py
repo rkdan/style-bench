@@ -43,18 +43,37 @@ def main(config_path, log_level, log_file):
         raise
 
     # == Analysis tools loaded ===
-    lexical_computer = LexicalComputer(config.lexical)
-    logger.info("Lexical analysis tools initialized")
+    try:
+        logger.info("Initializing lexical analysis tools")
+        lexical_computer = LexicalComputer(config.lexical)
+        logger.info("Lexical analysis tools initialized")
+    except Exception as e:
+        logger.error("Failed to initialize lexical analysis tools: ", e)
+        raise
 
     # == Analysis execution ===
-    lexical_metrics = lexical_computer.analyze_corpus(
-        texts,
-    )
-    logger.success("Lexical analysis completed")
+    try:
+        logger.info("Starting lexical analysis on {} texts", len(texts))
+        lexical_metrics = lexical_computer.analyze_corpus(
+            texts,
+        )
+        logger.success("Lexical analysis completed")
+    except Exception as e:
+        logger.error("Failed to analyze texts: ", e)
+        raise
 
     # == Output storage ===
-    output_manager = OutputManager()
-    output_manager(config, lexical_metrics, texts)
+    try:
+        logger.info("Saving results to output path: {}", config.data.output_path)
+        output_manager = OutputManager()
+        output_manager(config, lexical_metrics, texts)
+        logger.info("Results saved to {}", output_manager.output_path)
+    except Exception as e:
+        logger.error("Failed to save results: ", e)
+        raise
+
+    # == Summary ===
+    logger.success("Analysis completed successfully!")
 
 
 if __name__ == "__main__":

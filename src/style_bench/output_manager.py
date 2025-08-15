@@ -1,6 +1,5 @@
 # src/style_bench/output_manager.py
 
-
 import yaml
 import json
 from datetime import datetime
@@ -30,6 +29,8 @@ class OutputManager:
 
         # Save results
         self._save_results()
+
+        return str(self.output_path)
 
     def _get_path(self) -> str:
         path = Path(self.config.data.output_path)

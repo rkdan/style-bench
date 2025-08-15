@@ -7,7 +7,9 @@ import numpy as np
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
-from .models import LexicalMetrics, WordLength, Richness, Legomena
+from transformers import pipeline
+
+from .models import LexicalMetrics, WordLength, Richness, Legomena, Sentiment
 from .config import LexicalConfig
 
 
@@ -21,23 +23,21 @@ class LexicalComputer:
         self.stop_words = set(stopwords.words("english"))
         self.config = config
 
-    def analyze_single(self, text: str) -> dict:
-        """
-        Analyze text and return various stylometric features
-        """
-        # Basic text preparation
-        function_word_ratio = self._calculate_function_word_frequency(text)
-        word_length = self._calculate_word_length(text)
-
-        return (function_word_ratio, word_length)
-
     def analyze_corpus(self, texts: list[str], smoothed=False) -> LexicalMetrics:
         lexical_metrics = LexicalMetrics(
             word_length=WordLength(avg=[], std=[], skew=[], kurtosis=[]),
             function_word_frequency=[],
             richness=Richness(ttr=[], mattr=[]),
             legomena=Legomena(hapax=[], dislegomena=[], trilegomina=[]),
-            sentiment=[],
+            sentiment=Sentiment(
+                anger=[],
+                disgust=[],
+                fear=[],
+                joy=[],
+                neutral=[],
+                sadness=[],
+                surprise=[],
+            ),
         )
 
         pbar = tqdm(
@@ -90,10 +90,28 @@ class LexicalComputer:
                 lexical_metrics.legomena.dislegomena.append(dis)
                 lexical_metrics.legomena.trilegomina.append(tri)
 
-            # Sentiment
-            if self.config.sentiment:
-                sentiment = self._sentiment(text)
-                lexical_metrics.sentiment.append(sentiment)
+        # Sentiment
+        if self.config.sentiment:
+            if self.config.sentiment.batch_size is None:
+                print("Setting batch size to 64 for sentiment analysis")
+                self.config.sentiment.batch_size = 64
+            classifier = pipeline(
+                "text-classification",
+                model=self.config.sentiment.model_name,
+                return_all_scores=True,
+            )
+            results = classifier(
+                texts, truncation=True, batch_size=self.config.sentiment.batch_size
+            )
+
+            for result in results:
+                lexical_metrics.sentiment.anger.append(result[0]["score"])
+                lexical_metrics.sentiment.disgust.append(result[1]["score"])
+                lexical_metrics.sentiment.fear.append(result[2]["score"])
+                lexical_metrics.sentiment.joy.append(result[3]["score"])
+                lexical_metrics.sentiment.neutral.append(result[4]["score"])
+                lexical_metrics.sentiment.sadness.append(result[5]["score"])
+                lexical_metrics.sentiment.surprise.append(result[6]["score"])
 
         return lexical_metrics
 
@@ -161,5 +179,13 @@ class LexicalComputer:
             trilegomina / len(words) if words else 0,
         )
 
-    def _sentiment(self, text: str) -> float:
-        return None
+    def _sentiment(self, words: list) -> float:
+        classifier = pipeline(
+            "text-classification",
+            model="j-hartmann/emotion-english-distilroberta-base",
+            return_all_scores=True,
+        )
+        joined_text = " ".join(words)
+        results = classifier(joined_text)
+
+        return results

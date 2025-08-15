@@ -28,6 +28,17 @@ class Legomena:
 
 
 @dataclass
+class Sentiment:
+    anger: np.ndarray
+    disgust: np.ndarray
+    fear: np.ndarray
+    joy: np.ndarray
+    neutral: np.ndarray
+    sadness: np.ndarray
+    surprise: np.ndarray
+
+
+@dataclass
 class LexicalMetrics:
     word_length: WordLength
     function_word_frequency: np.ndarray
