@@ -9,7 +9,7 @@ from nltk.tokenize import word_tokenize
 
 from transformers import pipeline
 
-from .models import LexicalMetrics, WordLength, Richness, Legomena, Sentiment
+from .models import LexicalMetrics, Legomena
 from .config import LexicalConfig
 
 
@@ -24,21 +24,7 @@ class LexicalComputer:
         self.config = config
 
     def analyze_corpus(self, texts: list[str], smoothed=False) -> LexicalMetrics:
-        lexical_metrics = LexicalMetrics(
-            word_length=WordLength(avg=[], std=[], skew=[], kurtosis=[]),
-            function_word_frequency=[],
-            richness=Richness(ttr=[], mattr=[]),
-            legomena=Legomena(hapax=[], dislegomena=[], trilegomina=[]),
-            sentiment=Sentiment(
-                anger=[],
-                disgust=[],
-                fear=[],
-                joy=[],
-                neutral=[],
-                sadness=[],
-                surprise=[],
-            ),
-        )
+        lexical_metrics = LexicalMetrics()
 
         pbar = tqdm(
             texts,

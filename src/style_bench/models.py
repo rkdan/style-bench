@@ -1,50 +1,46 @@
-from dataclasses import dataclass
-from typing import Dict
-
-import numpy as np
-
-# This current configuration wont work because we have metrics and comparisons
+from dataclasses import dataclass, field
+from typing import List, Dict
 
 
 @dataclass
 class WordLength:
-    avg: np.ndarray
-    std: np.ndarray
-    skew: np.ndarray
-    kurtosis: np.ndarray
+    avg: List[float] = field(default_factory=list)
+    std: List[float] = field(default_factory=list)
+    skew: List[float] = field(default_factory=list)
+    kurtosis: List[float] = field(default_factory=list)
 
 
 @dataclass
 class Richness:
-    ttr: np.ndarray
-    mattr: np.ndarray
+    ttr: List[float] = field(default_factory=list)
+    mattr: List[float] = field(default_factory=list)
 
 
 @dataclass
 class Legomena:
-    hapax: np.ndarray
-    dislegomena: np.ndarray
-    trilegomina: np.ndarray
+    hapax: List[int] = field(default_factory=list)
+    dislegomena: List[int] = field(default_factory=list)
+    trilegomina: List[int] = field(default_factory=list)
 
 
 @dataclass
 class Sentiment:
-    anger: np.ndarray
-    disgust: np.ndarray
-    fear: np.ndarray
-    joy: np.ndarray
-    neutral: np.ndarray
-    sadness: np.ndarray
-    surprise: np.ndarray
+    anger: List[float] = field(default_factory=list)
+    disgust: List[float] = field(default_factory=list)
+    fear: List[float] = field(default_factory=list)
+    joy: List[float] = field(default_factory=list)
+    neutral: List[float] = field(default_factory=list)
+    sadness: List[float] = field(default_factory=list)
+    surprise: List[float] = field(default_factory=list)
 
 
 @dataclass
 class LexicalMetrics:
-    word_length: WordLength
-    function_word_frequency: np.ndarray
-    richness: Richness
-    sentiment: np.ndarray
-    legomena: Legomena
+    word_length: WordLength = field(default_factory=WordLength)
+    function_word_frequency: List[float] = field(default_factory=list)
+    richness: Richness = field(default_factory=Richness)
+    legomena: Legomena = field(default_factory=Legomena)
+    sentiment: Sentiment = field(default_factory=Sentiment)
 
 
 @dataclass
