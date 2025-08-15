@@ -16,6 +16,7 @@ dependencies = [
     "textdistance>=4.6.3",
     "tqdm>=4.67.1",
     "transformers>=4.55.2",
+    "torch>=2.7.0",
 ]
 
 [project.scripts]
@@ -31,6 +32,16 @@ dev = [
     "rich>=14.1.0",
     "ruff>=0.12.8",
 ]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
