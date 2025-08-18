@@ -1,5 +1,5 @@
-experiment_name: 'bush-500'
-experiment_description: 'Contains analysis of 500 Bush answers'
+experiment_name: 'obama-100'
+experiment_description: 'Contains analysis of 100 obama answers'
 
 lexical:
   richness:
@@ -22,6 +22,6 @@ syntactic:
 
 # Data
 data:
-  data_path: 'sample_data/100_bush_pairs.json'
+  data_path: 'sample_data/100_obama_pairs.json'
   target_key: 'answer' # Could be something else like 'CAPT JACK SPARROW'
-  output_path: 'output/bush/'
+  output_path: 'output/obama/'
